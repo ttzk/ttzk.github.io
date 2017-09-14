@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0037)http://avitabeauty.ivehost.net/K/new/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+       <title>Random Lunch</title>
+       
+       <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+       <style>
+body {
+	background: #fff;
+	padding: 0;
+	margin: 0;
+	font-weight: bold;
+	overflow: hidden;
+}
+h1 {
+	font-size: 50px;
+	text-align: center;
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-right: -50%;
+	transform: translate(-50%, -50%);
+	background: rgba(255,255,255,0.7);
+	 border-radius: 25px;
+	 height:100%;
+	 width:100%;
+	 padding-top:50%;
+}
+textarea {
+	display: none;
+}
+#new>h1{
+height:100%;
+width:100%;
+background:black;
+color:white;
+padding-top:50%;
+}
+
+
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+       <script>
+$(document).ready(function(){
+    $("#new").click(function(){
+        $("#new").fadeOut()
+    });
+});
+function roll(){
+choices = document.getElementById("choicelist").value.split("\n");
+var job = document.getElementById("job");  
+	   job.innerHTML = choices[Math.floor(Math.random() * choices.length)];} 
+       </script>
+       </head>
+       <body onload="roll()">
+<h1><span id="job"></span></h1>
+<script src="three.js"></script> 
+<script src="Projector.js"></script> 
+<script src="CanvasRenderer.js"></script> 
+<script src="stats.min.js"></script> 
+<script>
+document.body.onkeyup = function(e){
+if(e.keyCode == 32){
+roll();
+}
+}
+document.body.onmouseup = function(){roll();};
+			var container, stats;
+			var camera, scene, renderer;
+			var geometry, group;
+			var mouseX = 0, mouseY = 0;
+			var windowHalfX = window.innerWidth / 2;
+			var windowHalfY = window.innerHeight / 2;
+			document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+			init();
+			animate();
+			function init() {
+				container = document.createElement( 'div' );
+				document.body.appendChild( container );
+				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 10000 );
+				camera.position.z = 500;
+				scene = new THREE.Scene();
+				var geometry = new THREE.BoxGeometry( 100, 100, 100 );
+				var material = new THREE.MeshNormalMaterial( { overdraw: 0.5 } );
+				group = new THREE.Group();
+				for ( var i = 0; i < 200; i ++ ) {
+					var mesh = new THREE.Mesh( geometry, material );
+					mesh.position.x = Math.random() * 2000 - 1000;
+					mesh.position.y = Math.random() * 2000 - 1000;
+					mesh.position.z = Math.random() * 2000 - 1000;
+					mesh.rotation.x = Math.random() * 2 * Math.PI;
+					mesh.rotation.y = Math.random() * 2 * Math.PI;
+					mesh.matrixAutoUpdate = false;
+					mesh.updateMatrix();
+					group.add( mesh );
+				}
+				scene.add( group );
+				renderer = new THREE.CanvasRenderer();
+				renderer.setClearColor( 0xffffff );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+				stats = new Stats();
+				container.appendChild( stats.dom );
+				//
+				window.addEventListener( 'resize', onWindowResize, false );
+			}
+			function onWindowResize() {
+				windowHalfX = window.innerWidth / 2;
+				windowHalfY = window.innerHeight / 2;
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			function onDocumentMouseMove(event) {
+				mouseX = ( event.clientX - windowHalfX ) * 10;
+				mouseY = ( event.clientY - windowHalfY ) * 10;
+			}
+			//
+			function animate() {
+				requestAnimationFrame( animate );
+				render();
+				//stats.update();
+			}
+			function render() {
+				camera.position.x += ( mouseX - camera.position.x ) * .05;
+				camera.position.y += ( - mouseY - camera.position.y ) * .05;
+				camera.lookAt( scene.position );
+				var currentSeconds = Date.now();
+				group.rotation.x = Math.sin( currentSeconds * 0.0007 ) * 0.5;
+				group.rotation.y = Math.sin( currentSeconds * 0.0003 ) * 0.5;
+				group.rotation.z = Math.sin( currentSeconds * 0.0002 ) * 0.5;
+				renderer.render( scene, camera );
+			}
+
+		</script><div><canvas width="673" height="609" style="width: 673px; height: 609px; display: none;"></canvas><div style="position: fixed; top: 0px; left: 0px; cursor: pointer; opacity: 0.9; z-index: 10000;"><canvas width="80" height="48" style="width: 80px; height: 48px; display: block;"></canvas><canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas><canvas width="80" height="48" style="width: 80px; height: 48px; display: none;"></canvas></div></div>
+<textarea id="choicelist" rows="0" cols="0">中
+日
+韓
+台
+泰
+意
+普
+鐵</textarea>
+<div id="new">
+<h1>Random!</h1></div>
+</body></html>
